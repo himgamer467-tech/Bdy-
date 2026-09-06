@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Girl Wala Bhai 🎂</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+  background: linear-gradient(135deg, #16001f, #4b0b52, #12001a);
+  color: white;
+}
+
+.screen {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+
+/* ---------- GIFT SCREEN ---------- */
+
+.gift-screen {
+  flex-direction: column;
+  transition: 1s ease;
+}
+
+.small-text {
+  font-size: 18px;
+  letter-spacing: 2px;
+  margin-bottom: 25px;
+  opacity: .9;
+}
+
+.gift {
+  position: relative;
+  width: 150px;
+  height: 130px;
+  cursor: pointer;
+  animation: float 2s infinite ease-in-out;
+  margin-bottom: 30px;
+}
+
+.gift-box {
+  position: absolute;
+  bottom: 0;
+  width: 150px;
+  height: 100px;
+  background: #ff3f81;
+  border-radius: 8px;
+  box-shadow: 0 15px 35px rgba(0,0,0,.35);
+}
+
+.gift-box::before {
+  content: "";
+  position: absolute;
+  left: 62px;
+  width: 27px;
+  height: 100%;
+  background: #ffd34d;
+}
+
+.lid {
+  position: absolute;
+  top: 20px;
+  left: -8px;
+  width: 166px;
+  height: 35px;
+  background: #ff5b95;
+  border-radius: 7px;
+  z-index: 2;
+}
+
+.lid::before {
+  content: "";
+  position: absolute;
+  left: 70px;
+  width: 27px;
+  height: 35px;
+  background: #ffd34d;
+}
+
+.ribbon {
+  position: absolute;
+  width: 65px;
+  height: 30px;
+  border: 9px solid #ffd34d;
+  border-radius: 50%;
+  top: -8px;
+  z-index: 3;
+}
+
+.ribbon.left {
+  left: 35px;
+  transform: rotate(-25deg);
+}
+
+.ribbon.right {
+  right: 35px;
+  transform: rotate(25deg);
+}
+
+.open-text {
+  font-size: 16px;
+  color: #ffd9ea;
+  animation: blink 1.5s infinite;
+}
+
+/* ---------- WISH SCREEN ---------- */
+
+.wish-screen {
+  display: none;
+  position: relative;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.wish-screen.show {
+  display: flex;
+  animation: appear 1.2s ease;
+}
+
+.emoji {
+  font-size: 55px;
+  margin-bottom: 10px;
+  animation: bounce 1.5s infinite;
+}
+
+h1 {
+  font-size: clamp(32px, 8vw, 65px);
+  line-height: 1.1;
+  background: linear-gradient(90deg, #fff, #ff91bd, #ffd86b, #fff);
+  background-size: 300%;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: gradient 4s infinite;
+  margin-bottom: 20px;
+}
+
+.subtitle {
+  font-size: 22px;
+  color: #ffd6e8;
+  margin-bottom: 25px;
+}
+
+.message {
+  max-width: 650px;
+  background: rgba(255,255,255,.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 22px;
+  padding: 28px;
+  font-size: 18px;
+  line-height: 1.7;
+  box-shadow: 0 15px 50px rgba(0,0,0,.25);
+}
+
+.highlight {
+  color: #ffd45e;
+  font-weight: bold;
+}
+
+.signature {
+  margin-top: 25px;
+  font-size: 20px;
+  color: #ffb5d2;
+}
+
+/* ---------- CONFETTI ---------- */
+
+.confetti {
+  position: fixed;
+  width: 9px;
+  height: 15px;
+  top: -20px;
+  animation: fall linear forwards;
+  z-index: 10;
+}
+
+/* ---------- ANIMATIONS ---------- */
+
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+@keyframes blink {
+  50% { opacity: .4; }
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: scale(.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes bounce {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes gradient {
+  0% { background-position: 0%; }
+  50% { background-position: 100%; }
+  100% { background-position: 0%; }
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .message {
+    font-size: 16px;
+    padding: 22px;
+  }
+
+  .subtitle {
+    font-size: 18px;
+  }
+
+  .gift {
+    transform: scale(.9);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- GIFT SCREEN -->
+<section class="screen gift-screen" id="giftScreen">
+
+  <div class="small-text">
+    🎁 Someone has a surprise for you...
+  </div>
+
+  <div class="gift" onclick="openGift()">
+
+    <div class="ribbon left"></div>
+    <div class="ribbon right"></div>
+
+    <div class="lid" id="lid"></div>
+
+    <div class="gift-box"></div>
+
+  </div>
+
+  <div class="open-text">
+    👆 Tap the gift to open it
+  </div>
+
+</section>
+
+
+<!-- BIRTHDAY SCREEN -->
+<section class="screen wish-screen" id="wishScreen">
+
+  <div class="emoji">🎂</div>
+
+  <h1>
+    HAPPY BIRTHDAY<br>
+    GIRL WALA BHAI! ❤️
+  </h1>
+
+  <div class="subtitle">
+    🥳 Today is your special day! 🥳
+  </div>
+
+  <div class="message">
+
+    Aaj ka din thoda extra special hai,
+    kyunki aaj hamare
+    <span class="highlight">Girl Wale Bhai</span>
+    ka birthday hai! 😎❤️
+
+    <br><br>
+
+    Hamesha aise hi khush raho,
+    haste raho aur life mein
+    har woh cheez mile jo tum dil se chahte ho. ✨
+
+    <br><br>
+
+    Tumhari life mein happiness unlimited ho,
+    problems minimum ho,
+    aur memories hamesha legendary ho! 🔥
+
+    <br><br>
+
+    <span class="highlight">
+      Happy Birthday Bhai! 🎉🎁
+    </span>
+
+    <div class="signature">
+      Stay crazy. Stay happy. Keep shining! 🌟❤️
+    </div>
+
+  </div>
+
+</section>
+
+
+<script>
+
+function openGift() {
+
+  const giftScreen = document.getElementById("giftScreen");
+  const wishScreen = document.getElementById("wishScreen");
+  const lid = document.getElementById("lid");
+
+  // Open lid
+  lid.style.transition = "1s ease";
+  lid.style.transform = "translateY(-100px) rotate(-8deg)";
+  lid.style.opacity = "0";
+
+  // Confetti
+  createConfetti();
+
+  // Change screen
+  setTimeout(() => {
+    giftScreen.style.display = "none";
+    wishScreen.classList.add("show");
+  }, 900);
+}
+
+
+function createConfetti() {
+
+  const symbols = ["🎉", "✨", "❤️", "💖", "⭐", "🎊"];
+
+  for (let i = 0; i < 70; i++) {
+
+    const piece = document.createElement("div");
+
+    piece.classList.add("confetti");
+
+    piece.innerHTML =
+      symbols[Math.floor(Math.random() * symbols.length)];
+
+    piece.style.left = Math.random() * 100 + "vw";
+
+    piece.style.fontSize =
+      (12 + Math.random() * 18) + "px";
+
+    piece.style.animationDuration =
+      (2 + Math.random() * 4) + "s";
+
+    piece.style.animationDelay =
+      Math.random() * 1.5 + "s";
+
+    document.body.appendChild(piece);
+
+    setTimeout(() => {
+      piece.remove();
+    }, 7000);
+  }
+}
+
+</script>
+
+</body>
+  </html>
